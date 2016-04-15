@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.9.2
+Created-By: 1.7.0_99-mockbuild_2016_03_25_01_00-b00 (Oracle Corporatio
+ n)
+Main-Class: ben.ForexNewsApplication
+

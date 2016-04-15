@@ -1,0 +1,47 @@
+<project name="ForexNews" basedir="." default="main">
+  <property name="src.dir" value="src"/>
+  <property name="build.dir" value="build"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="jar.dir" value="${build.dir}/jar"/>
+  <property name="manifest.file" value="${jar.dir}/MANIFEST.MF"/>
+
+  <property name="main-class" value="ben.ForexNewsApplication"/>
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+  </target>
+
+  <target name="compile">
+    <mkdir dir="${classes.dir}"/>
+    <javac srcdir="${src.dir}" destdir="${classes.dir}">
+      <classpath>
+        <pathelement path="${lib.dir}/json-simple-1.1.1.jar"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <mkdir dir="${jar.dir}"/>
+
+    <manifest file="${manifest.file}" >
+      <attribute name="Main-Class" value="${main-class}"/>
+    </manifest>
+
+    <jar destfile="${jar.dir}/${ant.project.name}.jar" 
+         basedir="${classes.dir}"
+         manifest="${manifest.file}">
+      <fileset dir="${classes.dir}" includes="**/*.class" />
+      <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
+    </jar>
+  </target>
+
+  <target name="run" depends="jar">
+    <java jar="${jar.dir}/${ant.project.name}.jar" fork="true" />
+  </target>
+
+  <target name="clean-build" depends="clean,jar"/>
+  
+  <target name="main" depends="clean,run"/>
+
+</project>

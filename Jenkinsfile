@@ -1,3 +1,3 @@
 node{
-  echo 'master'
+  echo 'patch'
 }
